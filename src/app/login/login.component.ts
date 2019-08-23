@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   public login(){
-    this.loading=true;  
+    this.loading=true;
+    this._authenService.login(this.model.username,this.model.password,this.model.rememberme).subscribe(data=>{
+      this.loading=false;
+    })  
   }
 
 }
