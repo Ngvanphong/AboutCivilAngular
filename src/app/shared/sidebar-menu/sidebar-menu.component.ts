@@ -15,18 +15,18 @@ export class SidebarMenuComponent implements OnInit {
   constructor(private _dataService: DataService,private _authenService:AuthenService) { }
 
   ngOnInit() {
-    // this._dataService.get('/api/Function/getlisthierarchy').subscribe((response: any[])=>{
-    //   if (response != null) {
-    //     this.functions = response.sort((n1, n2) => {
-    //       if (n1.SortOrderOrder > n2.SortOrderOrder)
-    //         return 1;
-    //       else if (n1.SortOrderOrder < n2.SortOrderOrder)
-    //         return -1;
-    //       return 0;
-    //     });
-    //   }   
-    // });
-    // this.getUser();
+    this._dataService.get('/api/Function/getlisthierarchy').subscribe((response: any[])=>{
+      if (response != null) {
+        this.functions = response.sort((n1, n2) => {
+          if (n1.SortOrderOrder > n2.SortOrderOrder)
+            return 1;
+          else if (n1.SortOrderOrder < n2.SortOrderOrder)
+            return -1;
+          return 0;
+        });
+      }   
+    });
+    this.getUser();
   }
   private getUser(){
     this.userLogin= this._authenService.getUserLogin()
