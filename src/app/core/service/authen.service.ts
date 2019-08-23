@@ -8,8 +8,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { UrlConstant } from '../common/url.constant';
 const _httpOptionLogin = {
   headers: new HttpHeaders({
-     'Content-Type': 'application/x-www-form-urlencoded'
- })
+    'Content-Type': 'application/x-www-form-urlencoded'
+  })
 };
 @Injectable({
   providedIn: 'root'
@@ -19,24 +19,77 @@ export class AuthenService {
   constructor(private _http: HttpClient, private _notificationService: NotificationService, private _utilityService: UtilityService) { }
   login(userName: string, password: string, rememberMe: boolean) {
     let body = "userName=" + encodeURIComponent(userName) + "&password=" + encodeURIComponent(password) + "&rememberMe=" + rememberMe + "&grant_type=password";
-    return this._http.post(SystemConstant.BASE_API+'/api/Account/login',body,_httpOptionLogin).pipe(
-      tap((res:any)=>{
-         if(res.token){
-           localStorage.removeItem(SystemConstant.CURRENT_USER);
-           localStorage.removeItem(SystemConstant.CURRENT_TOKEN);
-           localStorage.setItem(SystemConstant.CURRENT_USER,JSON.stringify(res.userLogin));
-           localStorage.setItem(SystemConstant.CURRENT_TOKEN,JSON.stringify(res.token));
-           this._utilityService.navigate(UrlConstant.HOME);
-         }
+    return this._http.post(SystemConstant.BASE_API + '/api/Account/login', body, _httpOptionLogin).pipe(
+      tap((res: any) => {
+        if (res.token) {
+          localStorage.removeItem(SystemConstant.CURRENT_USER);
+          localStorage.removeItem(SystemConstant.CURRENT_TOKEN);
+          localStorage.setItem(SystemConstant.CURRENT_USER, JSON.stringify(res.userLogin));
+          localStorage.setItem(SystemConstant.CURRENT_TOKEN, JSON.stringify(res.token));
+          this._utilityService.navigate(UrlConstant.HOME);
+        }
       }),
       catchError(
         this._notificationService.handleError<any>("Account isn't correct")
       )
     )
   }
-  logout(){
+
+  logout() {
     localStorage.removeItem(SystemConstant.CURRENT_TOKEN);
   }
-  
+
+  isUserAuthenticated(): boolean {
+    let user = localStorage.getItem(SystemConstant.CURRENT_USER);
+    if (user != null) { return true }
+    return false;
+  }
+
+  getUserLogin(): LoggedInUser {
+    let user: LoggedInUser = null;
+    if (this.isUserAuthenticated()) {
+      let userData: LoggedInUser = JSON.parse(localStorage.getItem(SystemConstant.CURRENT_USER));
+      var accessToken = JSON.parse(localStorage.getItem(SystemConstant.CURRENT_TOKEN));
+      user = new LoggedInUser(accessToken, userData.username, userData.fullName, userData.emmail, userData.avatar, userData.roles, userData.permissions);
+    }
+    return user;
+  }
+
+  checkAccess(functionId: string) {
+    var user = this.getUserLogin();
+    var permissions: any[] = JSON.parse(user.permissions);
+    var roles: any[] = JSON.parse(user.roles);
+    var hasPermission: number = permissions.findIndex(x => x.FunctionId == functionId && x.CanRead == true);
+    if (hasPermission != -1 || roles.findIndex(x => x == "Admin") != -1) {
+      return true;
+    }
+    return false;
+  }
+
+  hasPermission(functionId: string, action: string): boolean {
+    var user = this.getUserLogin();
+    var result = false;
+    var permissions: any[] = JSON.parse(user.permissions);
+    var roles: any[] = JSON.parse(user.roles);
+    switch (action) {
+      case 'create':
+        var hasPermission: number = permissions.findIndex(x => x.FunctionId == functionId && x.CanCreate == true);
+        if (hasPermission != -1 || roles.findIndex(x => x == "Admin") != -1)
+          result = true;
+        break
+      case 'update':
+        var hasPermission: number = permissions.findIndex(x => x.FunctionId == functionId && x.CanUpdate == true);
+        if (hasPermission != -1 || roles.findIndex(x => x == "Admin") != -1)
+          result = true;
+        break
+      case 'delete':
+        var hasPermission: number = permissions.findIndex(x => x.FunctionId == functionId && x.CanDelete == true);
+        if (hasPermission != -1 || roles.findIndex(x => x == "Admin") != -1)
+          result= true;
+        break
+    }
+    return result;
+  }
+
 
 }
