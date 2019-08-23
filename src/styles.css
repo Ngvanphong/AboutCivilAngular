@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+ @import "./assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css"; 
+@import "./assets/vendors/css/vendor.bundle.base.css";
+ /* @import "./assets/vendors/css/vendor.bundle.addons.css";  */
+ @import "./assets/css/style.css"; 
