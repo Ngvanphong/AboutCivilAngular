@@ -17,8 +17,7 @@ export class UploadService {
           formData.append(property, postData[property]);
         }
       }
-    }
-    
+    } 
     var returnReponse = new Promise((resolve, reject) => {
       this.dataService.postFile(url, formData).subscribe(
         res => {
