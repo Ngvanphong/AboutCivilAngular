@@ -20,6 +20,9 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "alertifyjs": "^1.11.4",
+    "moment": "^2.24.0",
+    "ng-multiselect-dropdown": "^0.2.3",
+    "ngx-bootstrap": "^5.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
