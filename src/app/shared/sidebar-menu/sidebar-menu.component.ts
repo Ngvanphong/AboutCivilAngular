@@ -18,9 +18,9 @@ export class SidebarMenuComponent implements OnInit {
     this._dataService.get('/api/Function/getlisthierarchy').subscribe((response: any[])=>{
       if (response != null) {
         this.functions = response.sort((n1, n2) => {
-          if (n1.SortOrderOrder > n2.SortOrderOrder)
+          if (n1.SortOrder > n2.SortOrder)
             return 1;
-          else if (n1.SortOrderOrder < n2.SortOrderOrder)
+          else if (n1.SortOrder < n2.SortOrder)
             return -1;
           return 0;
         });

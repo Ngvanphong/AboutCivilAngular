@@ -3,7 +3,7 @@ export class LoggedInUser{
     public access_token:string;
     public username:string;
     public fullName:string;
-    public emmail:string;
+    public email:string;
     public avatar:string;
     public roles:any;
     public permissions:any;
@@ -12,7 +12,7 @@ export class LoggedInUser{
        this.access_token=access_token;
        this.username=userName;
        this.fullName=fullName;
-       this.emmail=email;
+       this.email=email;
        this.avatar=avatar;
        this.roles=roles;
        this.permissions=permissions;

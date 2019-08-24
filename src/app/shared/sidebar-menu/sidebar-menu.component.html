@@ -7,7 +7,7 @@
               <img src="../../../assets/images/faces/face1.jpg" alt="profile image">
             </div>
             <div class="text-wrapper">
-              <p class="profile-name">Richard V.Welsh</p>
+              <p class="profile-name">{{userLogin.fullName}}</p>
               <div>
                 <small class="designation text-muted">Manager</small>
                 <span class="status-indicator online"></span>
@@ -18,23 +18,32 @@
           </button>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="menu-icon mdi mdi-content-copy"></i>
-          <span class="menu-title">Basic UI Elements</span>
-          <i class="menu-arrow"></i>
+    </ul>
+    <ul class="nav" *ngFor="let item of functions">
+      <li *ngIf="item.ChildFunctions.length==0" class="nav-item">
+        <a class="nav-link" routerLink="{{item.URL}}" routerLinkActive="active">
+            <i class="fa {{item.IconCss}}"></i>
+            <span class="menu-title">{{item.Name}}</span>
+        </a> 
+      </li>
+      <li *ngIf="item.ChildFunctions.length>0" class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#{{item.Id}}" aria-expanded="false" aria-controls="ui-basic">
+            <i class="fa {{item.IconCss}}"></i>
+            <span class="menu-title">{{item.Name}}</span>
+            <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
-            </li>
-          </ul>
-        </div>
+        <div class="collapse" id="{{item.Id}}">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item" *ngFor="let subItem of item.ChildFunctions">
+                <a class="nav-link" routerLink="{{subItem.URL}}" routerLinkActive="active">
+                  <i class="fa {{subItem.IconCss}}"></i>
+                  <span class="menu-title">{{subItem.Name}}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
       </li>
 
     </ul>
   </nav>
+

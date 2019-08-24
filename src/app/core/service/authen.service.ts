@@ -50,7 +50,7 @@ export class AuthenService {
     if (this.isUserAuthenticated()) {
       let userData: LoggedInUser = JSON.parse(localStorage.getItem(SystemConstant.CURRENT_USER));
       var accessToken = JSON.parse(localStorage.getItem(SystemConstant.CURRENT_TOKEN));
-      user = new LoggedInUser(accessToken, userData.username, userData.fullName, userData.emmail, userData.avatar, userData.roles, userData.permissions);
+      user = new LoggedInUser(accessToken, userData.username, userData.fullName, userData.email, userData.avatar, userData.roles, userData.permissions);
     }
     return user;
   }
