@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
   public roles:any[];
   public baseFolder:string=SystemConstant.BASE_API;
   public isConfirm:boolean=true;
-  private moment = moment();;
+
   
   //dropdown multi
   public dropdownList = [];
