@@ -7,7 +7,6 @@ import{NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import{BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
 import {ModalModule} from 'ngx-bootstrap';
 
-
 const userRouter:Routes=[
   {path:'',redirectTo:'index',pathMatch:'full'},
   {path:'index',component:UserComponent}

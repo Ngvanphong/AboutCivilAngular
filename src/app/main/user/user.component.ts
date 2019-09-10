@@ -9,8 +9,6 @@ import { SystemConstant } from 'src/app/core/common/system.constant.js';
 import { MessageConstant } from 'src/app/core/common/message.constant';
 import { NgForm } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
