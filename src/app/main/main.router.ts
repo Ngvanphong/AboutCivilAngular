@@ -5,6 +5,7 @@ export const mainRoutes:Routes=[
         {path:'',redirectTo:'home',pathMatch:'full'},
         {path:'home',loadChildren:'./home/home.module#HomeModule'},
         {path:'user', loadChildren:'./user/user.module#UserModule'},
-        {path:'function', loadChildren:'./function/function.module#FunctionModule'}
+        {path:'function', loadChildren:'./function/function.module#FunctionModule'},
+        {path:'role',loadChildren:'./role/role.module#RoleModule'}
     ]}
 ]
