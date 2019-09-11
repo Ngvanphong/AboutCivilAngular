@@ -93,6 +93,7 @@ export class PostComponent implements OnInit {
     this._router.navigate(['/main/post-add/index', id]);
   }
 
+
   private saveData(form: NgForm) {
     if (this.entity.Id == undefined) {
       this.entity.Status = 0;
@@ -123,8 +124,8 @@ export class PostComponent implements OnInit {
       let fi = this.image.nativeElement;
       if (fi.files.length > 0) {
         this._uploadService.postWithFile("/api/upload/saveImage?type=post", null, fi.files)
-          .then((imageUrl: string) => {
-            this.entity.Image = imageUrl;
+          .then((imageUrl: any) => {
+            this.entity.Image = imageUrl.path;
           }).then(() => {
             this.saveData(form);
           });
