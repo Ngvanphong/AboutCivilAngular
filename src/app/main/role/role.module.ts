@@ -4,13 +4,12 @@ import { RoleComponent } from './role.component';
 import {FormsModule} from '@angular/forms';
 import {ModalModule} from 'ngx-bootstrap';
 import {Routes,RouterModule} from '@angular/router';
+import { PaginationModule } from 'ngx-bootstrap';
 
 const roleRouter:Routes=[
   {path:'',redirectTo:'index',pathMatch:'full'},
   {path:'index', component:RoleComponent}
 ]
-
-
 @NgModule({
   declarations: [RoleComponent],
   imports: [
@@ -18,6 +17,7 @@ const roleRouter:Routes=[
     FormsModule,
     ModalModule.forRoot(),
     RouterModule.forChild(roleRouter),
+    PaginationModule.forRoot(),
   ]
 })
 export class RoleModule { }
