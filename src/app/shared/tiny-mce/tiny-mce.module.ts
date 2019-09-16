@@ -8,6 +8,7 @@ import { TinyMceComponent } from './tiny-mce.component';
   declarations: [TinyMceComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  
 })
 export class TinyMceModule { }

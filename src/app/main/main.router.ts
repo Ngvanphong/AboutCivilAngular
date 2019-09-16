@@ -7,6 +7,7 @@ export const mainRoutes:Routes=[
         {path:'user', loadChildren:'./user/user.module#UserModule'},
         {path:'function', loadChildren:'./function/function.module#FunctionModule'},
         {path:'role',loadChildren:'./role/role.module#RoleModule'},
-        {path:'post',loadChildren:'./post/post.module#PostModule'}
+        {path:'post',loadChildren:'./post/post.module#PostModule'},
+        {path:'post-add',loadChildren:'./post-add/post-add.module#PostAddModule'},
     ]}
 ]

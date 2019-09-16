@@ -1,5 +1,6 @@
 import { Component, OnDestroy, AfterViewInit, EventEmitter, Input, Output, ViewChild, OnChanges, OnInit } from '@angular/core';
-declare const tinymce;
+//import 'tinymce';
+declare const tinymce:any;
 
 @Component({
   selector: 'app-tiny-mce',
@@ -21,9 +22,11 @@ export class TinyMceComponent implements OnInit, AfterViewInit, OnDestroy  {
     tinymce.baseURL = "/assets/tinymce";
     tinymce.init({
       selector: '#' + this.elementId,
-      language: 'vi_VN',
-      skin_url: '/assets/tinymce/tinymce-custom-skin/custom',
-      language_url: '/assets/tinymce/langs/vi_VN.js',
+      height: 500,
+      menubar: false,
+      //language: 'vi_VN',
+      //skin_url: '/assets/tinymce/tinymce-custom-skin/custom',
+      //language_url: '/assets/tinymce/langs/vi_VN.js',
       paste_data_images: true,
       fontsize_formats: '8pt 10pt 12pt 13pt 14pt 15pt 18pt 24pt 36pt',
       plugins: "autoresize autosave autolink code codesample colorpicker emoticons fullscreen hr image code imagetools media preview table textcolor wordcount",
