@@ -8,7 +8,6 @@ import { NotificationService } from 'src/app/core/service/notification.service';
 import { UploadService } from 'src/app/core/service/upload.service';
 import { MessageConstant } from 'src/app/core/common/message.constant';
 import { NgForm } from '@angular/forms';
-declare const tinymce: any;
 
 @Component({
   selector: 'app-post-add',
@@ -45,19 +44,10 @@ export class PostAddComponent implements OnInit {
   private getDetail() {
     this._dataService.get('/api/post/detail/' + this.blogId).subscribe((response: any) => {
       this.entity = response;
-      if (this.entity.Content != undefined && this.entity.Content != null) {
-        tinymce.activeEditor.setContent(this.entity.Content);
-      }
-      else {
-        tinymce.on('init', () => {
-          tinymce.editor = ""
-        });
+      if (this.entity.Content == undefined || this.entity.Content == null) {
+       this.entity.Content=''
       }
     });
-  }
-
-  public keyupHandlerContentFunction(e: any) {
-    this.entity.Content = e;
   }
 
   goBack() {
