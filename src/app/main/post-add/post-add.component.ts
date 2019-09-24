@@ -14,7 +14,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './post-add.component.html',
   styleUrls: ['./post-add.component.css']
 })
-export class PostAddComponent implements OnInit {
+export class PostAddComponent implements OnInit  {
 
   public baseFolder: string = SystemConstant.BASE_API;
   @ViewChild('imageManageModal',{static:false}) private imageManageModal: ModalDirective;
@@ -28,13 +28,21 @@ export class PostAddComponent implements OnInit {
   public postImages: any[];
   public image: any = {};
   public parama: any;
+  public config:any;
 
   constructor(private _dataService: DataService, private _activateRouter: ActivatedRoute, private _router: Router,
     private _notificationService: NotificationService, private _uploadService: UploadService) { 
       this._activateRouter.params.subscribe(params => {
         this.blogId = params['id'];
         this.imageEntity.BlogId=this.blogId;
-      })
+      });
+      this.config = {
+        autoGrow_onStartup : true,
+        extraPlugins : 'autogrow',
+        autoGrow_minHeight : 200,
+        autoGrow_maxHeight : 600,
+        autoGrow_bottomSpace : 50,
+      };
     }
   
   ngOnInit() {
@@ -44,15 +52,13 @@ export class PostAddComponent implements OnInit {
   private getDetail() {
     this._dataService.get('/api/post/detail/' + this.blogId).subscribe((response: any) => {
       this.entity = response;
-      if (this.entity.Content == undefined || this.entity.Content == null) {
-       this.entity.Content=''
-      }
     });
   }
 
   goBack() {
     this._notificationService.printConfirmationDialog("Bạn đã lưu nội dung trước khi quay lại !", () => {
       this._router.navigate(['/main/post/index']);
+      
     })
   }
 
@@ -79,7 +85,7 @@ export class PostAddComponent implements OnInit {
 
   public deleteImage(imageId: string) {
     this._notificationService.printConfirmationDialog(MessageConstant.CONFIRM_DELETE_MEG, () => {
-      this._dataService.delete('/api/postImage/delete', 'id', imageId.toString()).subscribe((res) => {
+      this._dataService.delete('/api/postimage/delete', 'id', imageId.toString()).subscribe((res) => {
         this.imageEntity.BlogId=this.blogId;
         this.loadPostImage(this.imageEntity.BlogId);
       });
@@ -90,8 +96,8 @@ export class PostAddComponent implements OnInit {
     if (form.valid) {
       var fi = this.imagePath.nativeElement;
       if (fi.files.length > 0) {
-        this._uploadService.postWithFile('/api/upload/saveimage?type=post', null, fi.files).then((imageUrl) => {
-          this.imageEntity.Path = imageUrl;
+        this._uploadService.postWithFile('/api/upload/saveimage?type=post', null, fi.files).then((imageUrl:any) => {
+          this.imageEntity.Path = imageUrl.path;
         }).then(() => {
           this.changeData(form);
         })

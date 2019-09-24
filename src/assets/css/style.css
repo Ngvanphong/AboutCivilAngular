@@ -11106,8 +11106,13 @@ button.close {
 
 @media (min-width: 992px) {
   .modal-lg {
-    max-width: 90%; } }
-
+    max-width: 70%; } }
+ @media (min-width: 576px) {
+      .modal-lgImage {
+        max-width: 90%; } }
+@media (min-width: 1920px) {
+          .modal-lgImage {
+            max-width: 50%; } }
 .tooltip {
   position: absolute;
   z-index: 1070;
