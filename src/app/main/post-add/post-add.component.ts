@@ -28,17 +28,17 @@ export class PostAddComponent implements OnInit  {
   public postImages: any[];
   public image: any = {};
   public parama: any;
-
+  public editorConfig:any;
   constructor(private _dataService: DataService, private _activateRouter: ActivatedRoute, private _router: Router,
     private _notificationService: NotificationService, private _uploadService: UploadService) { 
       this._activateRouter.params.subscribe(params => {
         this.blogId = params['id'];
         this.imageEntity.BlogId=this.blogId;
-      });
+      })
     }
   
   ngOnInit() {
-    this.getDetail()
+    this.getDetail();
   }
 
   private getDetail() {
