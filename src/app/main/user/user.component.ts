@@ -123,8 +123,8 @@ export class UserComponent implements OnInit {
       let fi=this.avatar.nativeElement;
       if(fi.files.length>0){
         this._uploadService.postWithFile("/api/upload/saveImage?type=avatar", null, fi.files)
-        .then((imageUrl:string)=>{
-            this.entity.Avatar=imageUrl;
+        .then((imageUrl:any)=>{
+            this.entity.Avatar=imageUrl.path;
         }).then(()=>{
           this.saveData(form);
         });
