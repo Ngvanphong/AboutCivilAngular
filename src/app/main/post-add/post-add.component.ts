@@ -28,7 +28,6 @@ export class PostAddComponent implements OnInit  {
   public postImages: any[];
   public image: any = {};
   public parama: any;
-  public config:any;
 
   constructor(private _dataService: DataService, private _activateRouter: ActivatedRoute, private _router: Router,
     private _notificationService: NotificationService, private _uploadService: UploadService) { 
@@ -36,13 +35,6 @@ export class PostAddComponent implements OnInit  {
         this.blogId = params['id'];
         this.imageEntity.BlogId=this.blogId;
       });
-      this.config = {
-        autoGrow_onStartup : true,
-        extraPlugins : 'autogrow',
-        autoGrow_minHeight : 200,
-        autoGrow_maxHeight : 600,
-        autoGrow_bottomSpace : 50,
-      };
     }
   
   ngOnInit() {
